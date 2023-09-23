@@ -14,7 +14,7 @@ class PlanactionModel extends Model
     protected $returnType     = 'array';
     protected $useSoftDeletes = true;
 
-    protected $allowedFields = ['mois', 'annee','jour','designation','pourqui','lieu','apps','responsable','budgetvise','nbbeneficiaire',
+    protected $allowedFields = ['date','designation','description','nbjour','pourqui','lieu','apps','responsable','budgetvise','nbbeneficiaire',
                                 'budgetrealise','nbbeneficaireatteint','statut','datephoto','personnephoto'];
 
     // Dates

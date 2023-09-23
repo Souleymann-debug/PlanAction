@@ -18,9 +18,10 @@ class MesUtilisateur extends BaseController
             return view('connexion.php',['mess' => $mess]);
         } else {
             
-            $allplan = $modelplan->findAll();   
-            // var_dump($allplan);
-            return view('admin/utilisateurs.php',['plans' => $allplan]);
+            $users = $modelplan->findAll();   
+            // var_dump($users);
+
+            return view('admin/utilisateurs.php',['users' => $users,'session' => $session]);
         }
     }
 
@@ -32,7 +33,7 @@ class MesUtilisateur extends BaseController
             $mess = true;
             return view('connexion.php',['mess' => $mess]);
         } else {
-            return view('admin/ajouteruser.php');
+            return view('add_user.php',['session' => $session]);
         }
     }
 
@@ -46,6 +47,7 @@ class MesUtilisateur extends BaseController
             "prenom" => $this->request->getVar("prenom"),
             "email" => $this->request->getVar("email"),
             "mdp" => $this->request->getVar("mdp"),
+            "role" => $this->request->getVar("role"),
             "apps" => $this->request->getVar("apps"),
         ];
 
@@ -53,8 +55,57 @@ class MesUtilisateur extends BaseController
 
         $modelplan -> insert($data);
 
-        return view('admin/validationajoutplanadmin.php');
+        return redirect()->to('Utilisateur');
+
     }
+
+    public function delete_user()
+    {
+        $session = session();
+
+        $idUser = $this->request->getVar("id");
+
+        $userModel = new Utilisateur();
+        
+        $userModel->delete($idUser);
+        
+        return redirect()->to('Utilisateur');
+
+    }
+
+    function affUserModif() {
+        $session = session();
+        
+        $userModel = new Utilisateur();
+
+        $idUser = $this->request->getVar("id");
+
+        $user = $userModel->find($idUser);
+
+        return view('modify_user.php',['user'=>$user, 'session' => $session]);
+    }
+
+    function modifUser() {
+        $session = session();
+        
+        $userModel = new Utilisateur();
+
+        $idUser = $this->request->getVar("id");
+
+        $newdata = [
+            'nom'=> $this->request->getVar("nom"),
+            'prenom'=> $this->request->getVar("prenom"),
+            'email'=> $this->request->getVar("email"),
+            'mdp'=> $this->request->getVar("mdp"),
+            'apps'=> $this->request->getVar("apps"),
+            'role'=> $this->request->getVar("role"),
+        ];
+        
+        $userModel->update($idUser,$newdata);
+
+        return redirect()->to('Utilisateur');
+    }
+
 }
 ?>
 

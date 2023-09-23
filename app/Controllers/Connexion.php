@@ -5,6 +5,8 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\Utilisateur;
 use App\Models\PlanactionModel;
+use CodeIgniter\Router\Routes;
+use App\Controllers\Home;
 
 class Connexion extends BaseController
 {
@@ -18,6 +20,8 @@ class Connexion extends BaseController
 
     public function connect()
     {
+        $routes = service('routes');
+
         $mess = true;
 
         $userModel = new Utilisateur();
@@ -34,6 +38,7 @@ class Connexion extends BaseController
             $nom = $row->nom;
             $prenom = $row->prenom;
             $apps = $row->apps;
+            $role = $row->role;
 
 
             $session = session();
@@ -42,22 +47,34 @@ class Connexion extends BaseController
             $session->set('nom', $nom);
             $session->set('prenom', $prenom);
             $session->set('apps', $apps);
+            $session->set('role', $role);
 
             // echo $prenom." ".$nom;
-            if ($session->get('email')=="admin@gmail.com" & $session->get('mdp')=="mdptest") {                
-                return view('admin/index.php');
-            } else {                
-                $modelplan = new PlanactionModel();
+                         
+            $modelplan = new PlanactionModel();
 
-                if ($session->get('apps')=="") {
-                    $allplan = $modelplan->AllPlanAction()->getResult();  
-                } else {
+            // if ($session->get('apps')=="") {
+            //     $allplan = $modelplan->AllPlanAction()->getResult();  
+            // } else {
+            //     $allplan = $modelplan->myPlanAction($session->get('apps'))->getResult();  
+            // }
+
+
+            if ($session->get('role')=="Admin") {
+                $allplan = $modelplan->AllPlanAction()->getResult();  
+            } else {
+                if ($session->get('role')=="Président") {
                     $allplan = $modelplan->myPlanAction($session->get('apps'))->getResult();  
                 }
-                
-                // var_dump($allplan);
-                return view('mesplanaction.php',['plans' => $allplan,'session' => $session]);
             }
+            
+            
+            // var_dump($allplan);
+            // return view('mesplanaction.php',['plans' => $allplan,'session' => $session]);
+            // return redirect()->route('MesPlanAction::index');
+            return redirect()->to('MesPlanAction');
+            // echo "jijij";
+            
 
         } else {
             // Les informations de connexion sont invalides

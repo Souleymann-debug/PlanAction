@@ -11,7 +11,7 @@ class Utilisateur extends Model
 
     protected $useAutoIncrement = true;
 
-    protected $allowedFields = ['nom','prenom','email','mdp','apps'];
+    protected $allowedFields = ['nom','prenom','email','mdp','apps','role'];
 
     public function validateLogin($email, $mdp) {
         // Effectuez la vérification des informations de connexion dans la base de données

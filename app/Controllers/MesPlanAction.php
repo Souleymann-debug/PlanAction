@@ -13,7 +13,7 @@ class MesPlanAction extends BaseController
 
 
         $session = session();
-
+        
         if (empty($session->get('nom')) ) {
             $mess = true;
             return view('connexion.php',['mess' => $mess]);
@@ -26,7 +26,7 @@ class MesPlanAction extends BaseController
             }
             
             // var_dump($allplan);
-            return view('mesplanaction.php',['plans' => $allplan,'session' => $session]);
+            return view('all_plan.php',['plans' => $allplan,'session' => $session]);
         }
 
     }

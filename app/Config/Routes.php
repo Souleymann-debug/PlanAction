@@ -45,7 +45,10 @@ $routes->get('/Disconnect', 'Connexion::disconnect');
 $routes->post('/Connexion', 'Connexion::connect');
 $routes->get('/my-slug', 'Site::generateMySlug');
 $routes->get('/Utilisateur', 'MesUtilisateur::index');
+$routes->get('/UtilisateurDetail', 'MesUtilisateur::affUserModif');
+$routes->post('/ModifierUtilisateur', 'MesUtilisateur::modifUser');
 $routes->get('/AjouterUtilisateur', 'MesUtilisateur::aff_form');
+$routes->get('/SupprimerUtilisateur', 'MesUtilisateur::delete_user');
 $routes->post('/AjouterUtilisateur', 'MesUtilisateur::create');
 $routes->get('/SupprimerPlanAction', 'ModifierPlanAction::deletePlan');
 /*

@@ -39,4 +39,11 @@ class FichierModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function imageByPlan($idPlan) {
+        
+        $query = $this->db->table('fichiers')->where('id_planaction	', $idPlan);
+
+        return $query;
+    }
 }

@@ -1,0 +1,17 @@
+{
+    "author": {
+      "name": "PQINA",
+      "url": "https://pqina.nl"
+    },
+    "dependencies": {
+      "filepond": ">=3.7.x < 5.x",
+      "filepond-plugin-image-preview": "latest"
+    },
+    "description": "A FilePond demo forked from the docs",
+    "homepage": "https://pqina.nl/filepond",
+    "license": "MIT",
+    "main": "index.js",
+    "name": "filepond-demo",
+    "repository": "pqina/filepond",
+    "version": "0.0.1"
+  }
